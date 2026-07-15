@@ -4,7 +4,7 @@ Unit tests for OWL RL extras closure.
 
 from rdflib import RDF, XSD, Graph, Literal
 from rdflib.plugins.inference import DeductiveClosure
-from rdflib.plugins.inference.owlrl import OWLRL_Semantics
+from rdflib.plugins.inference.owlrlextras import OWLRL_Extension
 from rdflib.plugins.inference.namespaces import T
 
 

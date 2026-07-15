@@ -36,7 +36,6 @@ class OWLRLProcessor(rdflib.query.Processor):
         namespaces. The given base is used to resolve relative URIs in
         the query and will be overridden by any BASE given in the query.
         """
-
         if not isinstance(strOrQuery, Graph):
             self.graph.parse(data=strOrQuery, format="n3")
         else:
@@ -46,15 +45,10 @@ class OWLRLProcessor(rdflib.query.Processor):
             self.graph.bind(p, n)
 
         working_graph = copy.deepcopy(self.graph)
-        working_graph = Graph()
-        for s, p, o in self.graph.triples((None, None, None)):
-            working_graph.add((s, p, o))
-        # gid = URIRef("urn:rdflib:infer")
-        # working_graph = Graph(identifier=gid).addN([(s, p, o, gid) ])
 
         DeductiveClosure(OWLRL_Semantics).expand(working_graph)
 
-        return {"graph": working_graph - self.graph}
+        return {"type_": "CONSTRUCT", "graph": working_graph - self.graph}
 
 
 class RDFSProcessor(rdflib.query.Processor):
@@ -83,7 +77,7 @@ class RDFSProcessor(rdflib.query.Processor):
         for p, n in initNs.items():
             self.graph.bind(p, n)
 
-        working_graph = deepcopy(self.graph)
+        working_graph = copy.deepcopy(self.graph)
 
         DeductiveClosure(RDFS_Semantics).expand(working_graph)
 
@@ -111,6 +105,7 @@ class OWLRLUpdateProcessor(rdflib.query.UpdateProcessor):
 
         DeductiveClosure(OWLRL_Semantics).expand(self.graph)
 
+
 class RDFSUpdateProcessor(rdflib.query.UpdateProcessor):
     def __init__(self, graph: Graph):
         self.graph = graph
@@ -131,6 +126,7 @@ class RDFSUpdateProcessor(rdflib.query.UpdateProcessor):
             self.graph.bind(p, n)
 
         DeductiveClosure(RDFS_Semantics).expand(self.graph)
+
 
 class RuleResult(Result):
     def __init__(self, res: Mapping[str, Any]):

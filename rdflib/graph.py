@@ -2133,8 +2133,8 @@ class Graph(Node):
 
         ExpansionLogic = ["RDFS", "OWLRL", "SPARQLRULES"]
         from rdflib.plugins.inference import DeductiveClosure
-        from rdflib.plugins.inference.owlrl OWLRL_Semantics
-		from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
+        from rdflib.plugins.inference.owlrl import OWLRL_Semantics
+        from rdflib.plugins.inference.rdfsclosure import RDFS_Semantics
 
         if expansion_logic not in ExpansionLogic:
             raise ValueError(f"Expansion logic {expansion_logic} not supported. Must be one of {', '.join(ExpansionLogic)}.")

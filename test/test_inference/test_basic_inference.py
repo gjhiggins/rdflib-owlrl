@@ -54,7 +54,7 @@ def test_basic_inference_query():
 
     # expand the graph with OWL-RL semantics
     rules = ""
-    res = g.query(rules, processor="owlrl", result="rule")
+    res = g.query(rules, processor="owlrl")
 
     g += res.graph
 
@@ -115,7 +115,7 @@ def test_basic_inference_query_with_augmented_axioms():
     :hasGrandchild a owl:ObjectProperty ;
         owl:propertyChainAxiom ( :hasChild :hasChild ) .
     """
-    res = g.query(rules, processor="owlrl", result="rule")
+    res = g.query(rules, processor="owlrl")
 
     g += res.graph
 
